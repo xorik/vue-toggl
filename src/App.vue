@@ -13,6 +13,6 @@ export default {
 
 <style lang="less">
   @import "~bootstrap/less/bootstrap.less";
-  @import "~bootswatch/yeti/variables.less";
-  @import "~bootswatch/yeti/bootswatch.less";
+  @import "~bootswatch/slate/variables.less";
+  @import "~bootswatch/slate/bootswatch.less";
 </style>
