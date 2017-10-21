@@ -5,7 +5,9 @@
                 label Toggl API token
                 input.form-control(v-model="settingsData.apiKey" @change="updateWorkspaces")
 
-            workspaces(v-model="settingsData.workspace" :list="workspaces")
+            workspaces(v-model="settingsData.workspace" :list="workspaces" @input="updateProjects")
+
+            projects(v-model="settingsData.projects" :list="projects")
 
         button.btn.btn-primary(@click="open") Settings
 </template>
@@ -15,13 +17,15 @@ import { Modal } from 'uiv'
 import gloabalSettings from '@/services/Settings'
 import togglApi from '@/services/TogglApi'
 import Workspaces from './Workspaces'
+import Projects from './Projects'
 
 export default {
   data () {
     return {
       showModal: false,
       settingsData: gloabalSettings.data,
-      workspaces: []
+      workspaces: [],
+      projects: null
     }
   },
   methods: {
@@ -37,10 +41,16 @@ export default {
     updateWorkspaces () {
       togglApi.getWorkspaces(this.settingsData.apiKey).then(list => {
         this.workspaces = list
+        this.updateProjects()
       }, response => {
         // TODO: display error
         console.log('TOGGL API ERROR', response)
         this.workspaces = []
+      })
+    },
+    updateProjects () {
+      togglApi.getProjects(this.settingsData.workspace, this.settingsData.apiKey).then(list => {
+        this.projects = list
       })
     }
   },
@@ -49,7 +59,8 @@ export default {
   },
   components: {
     modal: Modal,
-    workspaces: Workspaces
+    workspaces: Workspaces,
+    projects: Projects
   }
 }
 </script>

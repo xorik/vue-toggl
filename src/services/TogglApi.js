@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import globalSettings from './Settings'
 
+const BASEURL = 'https://www.toggl.com/api/v8'
+
 class TogglApi {
   constructor (settings) {
     this.settings = settings
@@ -17,13 +19,14 @@ class TogglApi {
     }
   }
 
-  getWorkspaces (token = null) {
-    return Vue.http.get('https://www.toggl.com/api/v8/me', this._config(token))
+  getWorkspaces (token) {
+    return Vue.http.get(`${BASEURL}/me`, this._config(token))
       .then(response => response.body.data.workspaces)
   }
 
-  getProjects (token = null) {
-
+  getProjects (workspaceId, token) {
+    return Vue.http.get(`${BASEURL}/workspaces/${workspaceId}/projects`, this._config(token))
+      .then(response => response.body)
   }
 }
 

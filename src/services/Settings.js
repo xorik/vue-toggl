@@ -1,7 +1,8 @@
 const STORAGE_KEY = 'settings'
 const DEFAULT_SETTINGS = {
   apiKey: '',
-  workspace: ''
+  workspace: '',
+  projects: []
 }
 
 class Settings {
