@@ -19,6 +19,8 @@ import togglApi from '@/services/TogglApi'
 import Workspaces from './Workspaces'
 import Projects from './Projects'
 
+let loaded = false
+
 export default {
   data () {
     return {
@@ -32,6 +34,11 @@ export default {
     open () {
       this.settingsData = gloabalSettings.data
       this.showModal = true
+
+      if (!loaded) {
+        this.updateWorkspaces()
+        loaded = true
+      }
     },
     onHide (value) {
       if (value === 'ok') {
@@ -53,9 +60,6 @@ export default {
         this.projects = list
       })
     }
-  },
-  created: function () {
-    this.updateWorkspaces()
   },
   components: {
     modal: Modal,
