@@ -47,6 +47,7 @@ export default {
     },
     updateWorkspaces () {
       togglApi.getWorkspaces(this.settingsData.apiKey).then(list => {
+        this.settingsData.uid = togglApi.getUid()
         this.workspaces = list
         this.updateProjects()
       }, response => {

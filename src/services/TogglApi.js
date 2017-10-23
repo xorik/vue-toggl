@@ -6,6 +6,7 @@ const BASEURL = 'https://www.toggl.com/api/v8'
 class TogglApi {
   constructor (settings) {
     this.settings = settings
+    this.uid = null
   }
 
   _config (token = null) {
@@ -19,9 +20,17 @@ class TogglApi {
     }
   }
 
+  getUid () {
+    return this.uid
+  }
+
   getWorkspaces (token) {
     return Vue.http.get(`${BASEURL}/me`, this._config(token))
-      .then(response => response.body.data.workspaces)
+      .then(response => {
+        this.uid = response.body.data.id
+
+        return response.body.data.workspaces
+      })
   }
 
   getProjects (workspaceId, token) {
