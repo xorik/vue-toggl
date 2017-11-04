@@ -13,6 +13,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
+    "moment": "^2.19.1",
     "uiv": "^0.11.10",
     "vue": "^2.5.2",
     "vue-resource": "^1.3.4"
